@@ -27,7 +27,6 @@ sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 		auto pages = stack_main.get_pages();
 		auto selection = pages->get_selection();
 		int current_page = selection->get_maximum();
-		std::printf("Page: %d\n", current_page);
 
 		// Last page
 		if (current_page + 1 == 1)

@@ -9,6 +9,6 @@ class page_region : public Gtk::Box {
 
 	private:
 		Gtk::Label label_text;
-		Gtk::ListBox listbox_language;
-		Gtk::ScrolledWindow scrolledwindow_language;
+		Gtk::ListBox listbox_region;
+		Gtk::ScrolledWindow scrolledwindow_region;
 };
