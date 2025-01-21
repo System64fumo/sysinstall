@@ -56,7 +56,11 @@ page_user::page_user() : Gtk::Box(Gtk::Orientation::VERTICAL), box_profile_pictu
 	box_password.append(entry_password);
 	entry_password.set_valign(Gtk::Align::CENTER);
 	entry_password.set_placeholder_text("Password");
+	entry_password.set_visibility(false);
+	entry_password.set_input_purpose(Gtk::InputPurpose::PASSWORD);
 	box_password.append(entry_password_verification);
 	entry_password_verification.set_valign(Gtk::Align::CENTER);
 	entry_password_verification.set_placeholder_text("Password verification");
+	entry_password_verification.set_visibility(false);
+	entry_password_verification.set_input_purpose(Gtk::InputPurpose::PASSWORD);
 }

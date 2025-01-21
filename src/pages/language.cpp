@@ -9,8 +9,11 @@ page_language::page_language() : Gtk::Box(Gtk::Orientation::VERTICAL) {
 	label_text.set_margin(20);
 	label_text.get_style_context()->add_class("title-1");
 
-	scrolledwindow_language.set_size_request(300, 400);
+	scrolledwindow_language.set_size_request(400, 400);
 	scrolledwindow_language.set_halign(Gtk::Align::CENTER);
+
+	listbox_language.get_style_context()->add_class("rich-list");
+	listbox_language.get_style_context()->add_class("content");
 
 	const char *filename = "/etc/locale.gen";
 	FILE *file = fopen(filename, "r");

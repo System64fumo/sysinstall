@@ -10,9 +10,11 @@ page_region::page_region() : Gtk::Box(Gtk::Orientation::VERTICAL) {
 	label_text.set_margin(20);
 	label_text.get_style_context()->add_class("title-1");
 
-	scrolledwindow_region.set_size_request(300, 400);
+	scrolledwindow_region.set_size_request(400, 400);
 	scrolledwindow_region.set_halign(Gtk::Align::CENTER);
 
+	listbox_region.get_style_context()->add_class("rich-list");
+	listbox_region.get_style_context()->add_class("content");
 
 	const std::string prefix = "/usr/share/zoneinfo/";
 
