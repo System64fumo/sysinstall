@@ -1,6 +1,10 @@
 #include "language.hpp"
 
 page_language::page_language() : Gtk::Box(Gtk::Orientation::VERTICAL) {
+	setup_ui();
+}
+
+void page_language::setup_ui() {
 	append(label_text);
 	append(scrolledwindow_language);
 	scrolledwindow_language.set_child(listbox_language);

@@ -2,6 +2,10 @@
 #include <filesystem>
 
 page_region::page_region() : Gtk::Box(Gtk::Orientation::VERTICAL) {
+	setup_ui();
+}
+
+void page_region::setup_ui() {
 	append(label_text);
 	append(scrolledwindow_region);
 	scrolledwindow_region.set_child(listbox_region);

@@ -31,4 +31,6 @@ class page_user : public Gtk::Box {
 		Gtk::Box box_password_verification;
 		Gtk::Label label_password_verification;
 		Gtk::Entry entry_password_verification;
+
+		void setup_ui();
 };

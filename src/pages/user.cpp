@@ -1,6 +1,10 @@
 #include "user.hpp"
 
 page_user::page_user() : Gtk::Box(Gtk::Orientation::VERTICAL), box_profile_picture(Gtk::Orientation::VERTICAL) {
+	setup_ui();
+}
+
+void page_user::setup_ui() {
 	append(label_text);
 	append(box_profile_picture);
 	append(listbox_main);

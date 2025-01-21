@@ -12,5 +12,5 @@ class page_language : public Gtk::Box {
 		Gtk::ListBox listbox_language;
 		Gtk::ScrolledWindow scrolledwindow_language;
 
-		void load_locales();
+		void setup_ui();
 };

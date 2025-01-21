@@ -11,4 +11,6 @@ class page_region : public Gtk::Box {
 		Gtk::Label label_text;
 		Gtk::ListBox listbox_region;
 		Gtk::ScrolledWindow scrolledwindow_region;
+
+		void setup_ui();
 };
