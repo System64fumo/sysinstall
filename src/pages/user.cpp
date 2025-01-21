@@ -1,7 +1,9 @@
 #include "user.hpp"
+#include <algorithm>
 
 page_user::page_user() : Gtk::Box(Gtk::Orientation::VERTICAL), box_profile_picture(Gtk::Orientation::VERTICAL) {
 	setup_ui();
+	setup_actions();
 }
 
 void page_user::setup_ui() {
@@ -67,4 +69,39 @@ void page_user::setup_ui() {
 	entry_password_verification.set_placeholder_text("Password verification");
 	entry_password_verification.set_visibility(false);
 	entry_password_verification.set_input_purpose(Gtk::InputPurpose::PASSWORD);
+}
+
+void page_user::setup_actions() {
+	entry_full_name.signal_changed().connect([&]() {
+		std::string full_name = entry_full_name.get_text();
+
+		if (full_name.find(" ") != std::string::npos)
+			return;
+
+		std::transform(full_name.begin(), full_name.end(), full_name.begin(),
+			[](unsigned char c){ return std::tolower(c); });
+
+		entry_account_name.set_text(full_name);
+	});
+
+	entry_password_verification.signal_changed().connect([&]() {
+		if (entry_password.get_text() != entry_password_verification.get_text())
+			return;
+
+		std::printf("TODO: Enable next button\n");
+	});
+
+	// Switch focus
+	entry_full_name.signal_activate().connect([&]() {
+		entry_account_name.grab_focus();
+	});
+	entry_account_name.signal_activate().connect([&]() {
+		entry_password.grab_focus();
+	});
+	entry_password.signal_activate().connect([&]() {
+		entry_password_verification.grab_focus();
+	});
+	entry_password_verification.signal_activate().connect([&]() {
+		std::printf("TODO: Move on to next page\n");
+	});
 }

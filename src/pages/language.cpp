@@ -1,7 +1,13 @@
 #include "language.hpp"
 
 page_language::page_language() : Gtk::Box(Gtk::Orientation::VERTICAL) {
+	setup_language_list();
 	setup_ui();
+}
+
+void page_language::setup_language_list() {
+	// TODO: I REALLY don't want to do this but it might be the only way..
+	language_list["en_US.UTF-8"] = "English United States";
 }
 
 void page_language::setup_ui() {
