@@ -2,6 +2,7 @@
 #include <gtkmm/singleselection.h>
 #include "pages/language.hpp"
 #include "pages/region.hpp"
+#include "pages/user.hpp"
 
 sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 	set_title("Setup");
@@ -29,7 +30,7 @@ sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 		int current_page = selection->get_maximum();
 
 		// Last page
-		if (current_page + 1 == 1)
+		if (current_page + 1 == 2)
 			button_next.set_sensitive(false);
 
 		button_previous.set_sensitive(true);
@@ -67,4 +68,7 @@ void sysinstall::load_pages() {
 
 	auto p_region = Gtk::make_managed<page_region>();
 	auto stack_region = stack_main.add(*p_region, "region");
+
+	auto p_user = Gtk::make_managed<page_user>();
+	auto stack_user = stack_main.add(*p_user, "user");
 }
