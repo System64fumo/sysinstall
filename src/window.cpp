@@ -3,6 +3,7 @@
 #include "pages/language.hpp"
 #include "pages/region.hpp"
 #include "pages/user.hpp"
+#include "pages/setup.hpp"
 
 sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 	set_title("Setup");
@@ -30,10 +31,17 @@ sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 		int current_page = selection->get_maximum();
 
 		// Last page
-		if (current_page + 1 == 2)
+		if (current_page + 1 == 3)
 			button_next.set_sensitive(false);
 
 		button_previous.set_sensitive(true);
+
+		std::printf("Page: %d\n", current_page);
+		if (current_page == 1 && !password_set) {
+			button_next.set_sensitive(false);
+			pages->select_item(current_page + 1, false);
+			return;
+		}
 
 		pages->select_item(current_page + 1, false);
 	});
@@ -69,6 +77,9 @@ void sysinstall::load_pages() {
 	auto p_region = Gtk::make_managed<page_region>();
 	auto stack_region = stack_main.add(*p_region, "region");
 
-	auto p_user = Gtk::make_managed<page_user>();
+	auto p_user = Gtk::make_managed<page_user>(this);
 	auto stack_user = stack_main.add(*p_user, "user");
+
+	auto p_setup = Gtk::make_managed<page_setup>();
+	auto stack_setup = stack_main.add(*p_setup, "setup");
 }

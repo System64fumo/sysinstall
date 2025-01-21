@@ -5,11 +5,15 @@
 #include <gtkmm/listbox.h>
 #include <gtkmm/flowbox.h>
 
+class sysinstall;
+
 class page_user : public Gtk::Box {
 	public:
-		page_user();
+		page_user(sysinstall*);
 
 	private:
+		sysinstall* window;
+
 		Gtk::Label label_text;
 		Gtk::ListBox listbox_main;
 		Gtk::Box box_profile_picture;

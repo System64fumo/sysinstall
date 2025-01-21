@@ -1,7 +1,8 @@
 #include "user.hpp"
+#include "../window.hpp"
 #include <algorithm>
 
-page_user::page_user() : Gtk::Box(Gtk::Orientation::VERTICAL), box_profile_picture(Gtk::Orientation::VERTICAL) {
+page_user::page_user(sysinstall* win) : Gtk::Box(Gtk::Orientation::VERTICAL), window(win), box_profile_picture(Gtk::Orientation::VERTICAL) {
 	setup_ui();
 	setup_actions();
 }
@@ -72,6 +73,12 @@ void page_user::setup_ui() {
 }
 
 void page_user::setup_actions() {
+	// TODO: Check for illegal names (Censorship good :thumbs_up:)
+	// (Disallow the use of capital characters in usernames, numbers, etc..)
+
+	// TODO: Check if a username is set at all?
+	// Full usernames are not required, But nice to have so make that manditory too lol.
+
 	entry_full_name.signal_changed().connect([&]() {
 		std::string full_name = entry_full_name.get_text();
 
@@ -88,7 +95,8 @@ void page_user::setup_actions() {
 		if (entry_password.get_text() != entry_password_verification.get_text())
 			return;
 
-		std::printf("TODO: Enable next button\n");
+		window->password_set = true;
+		window->button_next.set_sensitive(true);
 	});
 
 	// Switch focus
