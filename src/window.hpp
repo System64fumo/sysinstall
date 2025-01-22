@@ -4,6 +4,7 @@
 #include <gtkmm/entry.h>
 #include <gtkmm/button.h>
 #include <gtkmm/listbox.h>
+#include <gtkmm/revealer.h>
 #include <gtkmm/centerbox.h>
 
 class sysinstall : public Gtk::Window {
@@ -19,6 +20,7 @@ class sysinstall : public Gtk::Window {
 
 		Gtk::Box box_main;
 		Gtk::Stack stack_main;
+		Gtk::Revealer revealer_nav;
 		Gtk::CenterBox centerbox_nav;
 
 		void setup_ui();

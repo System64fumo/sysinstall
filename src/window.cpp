@@ -36,12 +36,14 @@ sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 
 		button_previous.set_sensitive(true);
 
-		std::printf("Page: %d\n", current_page);
 		if (current_page == 1 && !password_set) {
 			button_next.set_sensitive(false);
 			pages->select_item(current_page + 1, false);
 			return;
 		}
+
+		if (current_page == 2 && password_set)
+			revealer_nav.set_reveal_child(false);
 
 		pages->select_item(current_page + 1, false);
 	});
@@ -49,7 +51,12 @@ sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 
 void sysinstall::setup_ui() {
 	box_main.append(stack_main);
-	box_main.append(centerbox_nav);
+	box_main.append(revealer_nav);
+
+	revealer_nav.set_child(centerbox_nav);
+	revealer_nav.set_transition_type(Gtk::RevealerTransitionType::SLIDE_UP);
+	revealer_nav.set_transition_duration(500);
+	revealer_nav.set_reveal_child(true);
 
 	box_main.get_style_context()->add_class("card");
 	box_main.set_size_request(750, 600);

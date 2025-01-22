@@ -14,8 +14,10 @@ void page_region::setup_ui() {
 	label_text.set_margin(20);
 	label_text.get_style_context()->add_class("title-1");
 
-	scrolledwindow_region.set_size_request(400, 400);
+	scrolledwindow_region.set_size_request(400, -1);
 	scrolledwindow_region.set_halign(Gtk::Align::CENTER);
+	scrolledwindow_region.set_vexpand();
+	scrolledwindow_region.set_margin_bottom(20);
 
 	listbox_region.get_style_context()->add_class("rich-list");
 	listbox_region.get_style_context()->add_class("content");

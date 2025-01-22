@@ -63,8 +63,10 @@ void page_language::setup_ui() {
 	label_text.set_margin(20);
 	label_text.get_style_context()->add_class("title-1");
 
-	scrolledwindow_language.set_size_request(400, 400);
+	scrolledwindow_language.set_size_request(400, -1);
 	scrolledwindow_language.set_halign(Gtk::Align::CENTER);
+	scrolledwindow_language.set_vexpand();
+	scrolledwindow_language.set_margin_bottom(20);
 
 	listbox_language.get_style_context()->add_class("rich-list");
 	listbox_language.get_style_context()->add_class("content");
