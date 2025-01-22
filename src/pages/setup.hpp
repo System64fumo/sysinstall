@@ -15,7 +15,8 @@ class page_setup : public Gtk::Box {
 		sysinstall* window;
 
 		Gtk::Label label_text;
-		Gtk::Entry entry_setup_output;
+		Gtk::Box box_setup_output;
+		Gtk::Label label_setup_output;
 		Gtk::Spinner spinner_progress;
 
 		void setup_ui();
