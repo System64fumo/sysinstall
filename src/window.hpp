@@ -7,6 +7,8 @@
 #include <gtkmm/revealer.h>
 #include <gtkmm/centerbox.h>
 
+class page_setup;
+
 class sysinstall : public Gtk::Window {
 	public:
 		sysinstall();
@@ -16,7 +18,14 @@ class sysinstall : public Gtk::Window {
 		Gtk::Button button_previous;
 		Gtk::Button button_next;
 
+		std::string language;
+		std::string time_zone;
+		std::string full_username;
+		std::string username;
+		std::string password;
+
 	private:
+		page_setup* p_setup;
 
 		Gtk::Box box_main;
 		Gtk::Stack stack_main;

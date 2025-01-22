@@ -1,8 +1,20 @@
 #include "language.hpp"
+#include "../window.hpp"
+#include <gtkmm/adjustment.h>
+#include <glibmm/main.h>
 
-page_language::page_language() : Gtk::Box(Gtk::Orientation::VERTICAL) {
+page_language::page_language(sysinstall* win) : Gtk::Box(Gtk::Orientation::VERTICAL), window(win) {
 	setup_language_list();
+	setup_actions();
 	setup_ui();
+
+	// Annoying, Scroll down to English
+	// TODO: Get rid of this
+	Glib::signal_timeout().connect_once([&]() {
+		auto adjustment = scrolledwindow_language.get_vadjustment();
+		adjustment->set_value(480);
+	}, 150);
+
 }
 
 void page_language::setup_language_list() {
@@ -71,23 +83,22 @@ void page_language::setup_ui() {
 	listbox_language.get_style_context()->add_class("rich-list");
 	listbox_language.get_style_context()->add_class("content");
 
-	// Sort stuff
-	listbox_language.set_sort_func([this](Gtk::ListBoxRow* row1, Gtk::ListBoxRow* row2) {
-		auto label1 = dynamic_cast<Gtk::Label*>(row1->get_child());
-		auto label2 = dynamic_cast<Gtk::Label*>(row2->get_child());
-		if (label1 && label2) {
-			return label1->get_text().compare(label2->get_text());
-		}
-		return 0;
-	});
-
 	// Populate the list
 	for (const auto& [key, value] : language_list) {
-		listbox_language.append(*Gtk::make_managed<Gtk::Label>(value));
+		auto row = Gtk::make_managed<Gtk::ListBoxRow>();
+		auto label = Gtk::make_managed<Gtk::Label>(value);
+		label->set_name(key);
+		row->set_child(*label);
+
+		listbox_language.append(*row);
+		if (key == "en_US.UTF-8") {
+			listbox_language.select_row(*row);
+		}
 	}
-	return;
 
 	// TODO: Reconsider this at some point
+	return;
+
 	const char *filename = "/etc/locale.gen";
 	FILE *file = fopen(filename, "r");
 	if (!file) {
@@ -119,4 +130,21 @@ void page_language::setup_ui() {
 			}
 		}
 	}
+}
+
+void page_language::setup_actions() {
+	listbox_language.set_sort_func([this](Gtk::ListBoxRow* row1, Gtk::ListBoxRow* row2) {
+		auto label1 = dynamic_cast<Gtk::Label*>(row1->get_child());
+		auto label2 = dynamic_cast<Gtk::Label*>(row2->get_child());
+		if (label1 && label2) {
+			return label1->get_text().compare(label2->get_text());
+		}
+		return 0;
+	});
+
+	listbox_language.signal_row_selected().connect([&](Gtk::ListBoxRow* selected_row) {
+		// TODO: Add live language switching (Is that even possible?)
+		auto selection = dynamic_cast<Gtk::Label*>(selected_row->get_child());
+		window->language = selection->get_name();
+	});
 }

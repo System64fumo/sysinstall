@@ -42,8 +42,10 @@ sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 			return;
 		}
 
-		if (current_page == 2 && password_set)
+		if (current_page == 2 && password_set) {
 			revealer_nav.set_reveal_child(false);
+			p_setup->start_setup();
+		}
 
 		pages->select_item(current_page + 1, false);
 	});
@@ -78,15 +80,15 @@ void sysinstall::setup_ui() {
 }
 
 void sysinstall::load_pages() {
-	auto p_language = Gtk::make_managed<page_language>();
+	auto p_language = Gtk::make_managed<page_language>(this);
 	auto stack_language = stack_main.add(*p_language, "language");
 
-	auto p_region = Gtk::make_managed<page_region>();
+	auto p_region = Gtk::make_managed<page_region>(this);
 	auto stack_region = stack_main.add(*p_region, "region");
 
 	auto p_user = Gtk::make_managed<page_user>(this);
 	auto stack_user = stack_main.add(*p_user, "user");
 
-	auto p_setup = Gtk::make_managed<page_setup>();
+	p_setup = Gtk::make_managed<page_setup>(this);
 	auto stack_setup = stack_main.add(*p_setup, "setup");
 }

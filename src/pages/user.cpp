@@ -81,6 +81,7 @@ void page_user::setup_actions() {
 
 	entry_full_name.signal_changed().connect([&]() {
 		std::string full_name = entry_full_name.get_text();
+		window->full_username = entry_full_name.get_text();
 
 		if (full_name.find(" ") != std::string::npos)
 			return;
@@ -89,6 +90,14 @@ void page_user::setup_actions() {
 			[](unsigned char c){ return std::tolower(c); });
 
 		entry_account_name.set_text(full_name);
+	});
+
+	entry_account_name.signal_changed().connect([&]() {
+		window->username = entry_account_name.get_text();
+	});
+
+	entry_password.signal_changed().connect([&]() {
+		window->password = entry_password.get_text();
 	});
 
 	entry_password_verification.signal_changed().connect([&]() {

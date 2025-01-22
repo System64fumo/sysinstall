@@ -1,8 +1,14 @@
 #include "region.hpp"
+#include "../window.hpp"
 #include <filesystem>
 
-page_region::page_region() : Gtk::Box(Gtk::Orientation::VERTICAL) {
+page_region::page_region(sysinstall* win) : Gtk::Box(Gtk::Orientation::VERTICAL), window(win) {
 	setup_ui();
+
+	listbox_region.signal_row_selected().connect([&](Gtk::ListBoxRow* selected_row) {
+		auto selection = dynamic_cast<Gtk::Label*>(selected_row->get_child());
+		window->time_zone = selection->get_text();
+	});
 }
 
 void page_region::setup_ui() {
