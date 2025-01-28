@@ -7,6 +7,7 @@
 #include <gtkmm/revealer.h>
 #include <gtkmm/centerbox.h>
 
+inline bool setup;
 class page_setup;
 
 class sysinstall : public Gtk::Window {
@@ -33,5 +34,6 @@ class sysinstall : public Gtk::Window {
 		Gtk::CenterBox centerbox_nav;
 
 		void setup_ui();
-		void load_pages();
+		void load_setup_pages();
+		void load_install_pages();
 };

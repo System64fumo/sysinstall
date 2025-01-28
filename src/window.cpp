@@ -4,14 +4,20 @@
 #include "pages/region.hpp"
 #include "pages/user.hpp"
 #include "pages/setup.hpp"
+#include "pages/platform.hpp"
 
 sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 	set_title("Setup");
 	set_default_size(1280, 720);
 	set_child(box_main);
 
+	// Out of Box Setup
+	if (setup)
+		load_setup_pages();
+	else
+		load_install_pages();
+
 	setup_ui();
-	load_pages();
 
 	button_previous.signal_clicked().connect([&]() {
 		auto pages = stack_main.get_pages();
@@ -36,15 +42,17 @@ sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 
 		button_previous.set_sensitive(true);
 
-		if (current_page == 1 && !password_set) {
-			button_next.set_sensitive(false);
-			pages->select_item(current_page + 1, false);
-			return;
-		}
+		if (setup) {
+			if (current_page == 1 && !password_set) {
+				button_next.set_sensitive(false);
+				pages->select_item(current_page + 1, false);
+				return;
+			}
 
-		if (current_page == 2 && password_set) {
-			revealer_nav.set_reveal_child(false);
-			p_setup->start_setup();
+			if (current_page == 2 && password_set) {
+				revealer_nav.set_reveal_child(false);
+				p_setup->start_setup();
+			}
 		}
 
 		pages->select_item(current_page + 1, false);
@@ -60,10 +68,12 @@ void sysinstall::setup_ui() {
 	revealer_nav.set_transition_duration(500);
 	revealer_nav.set_reveal_child(true);
 
-	box_main.get_style_context()->add_class("card");
-	box_main.set_size_request(750, 600);
-	box_main.set_halign(Gtk::Align::CENTER);
-	box_main.set_valign(Gtk::Align::CENTER);
+	if (setup) {
+		box_main.get_style_context()->add_class("card");
+		box_main.set_size_request(750, 600);
+		box_main.set_halign(Gtk::Align::CENTER);
+		box_main.set_valign(Gtk::Align::CENTER);
+	}
 
 	centerbox_nav.set_start_widget(button_previous);
 	centerbox_nav.set_end_widget(button_next);
@@ -79,7 +89,7 @@ void sysinstall::setup_ui() {
 	stack_main.set_vexpand(true);
 }
 
-void sysinstall::load_pages() {
+void sysinstall::load_setup_pages() {
 	auto p_language = Gtk::make_managed<page_language>(this);
 	auto stack_language = stack_main.add(*p_language, "language");
 
@@ -91,4 +101,9 @@ void sysinstall::load_pages() {
 
 	p_setup = Gtk::make_managed<page_setup>(this);
 	auto stack_setup = stack_main.add(*p_setup, "setup");
+}
+
+void sysinstall::load_install_pages() {
+	auto p_platform = Gtk::make_managed<page_platform>(this);
+	auto stack_platform = stack_main.add(*p_platform, "platform");
 }
