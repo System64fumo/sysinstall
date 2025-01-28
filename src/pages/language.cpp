@@ -13,7 +13,7 @@ page_language::page_language(sysinstall* win) : Gtk::Box(Gtk::Orientation::VERTI
 	Glib::signal_timeout().connect_once([&]() {
 		auto adjustment = scrolledwindow_language.get_vadjustment();
 		adjustment->set_value(480);
-	}, 150);
+	}, 250);
 
 }
 

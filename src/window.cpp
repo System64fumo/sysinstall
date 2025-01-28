@@ -78,10 +78,11 @@ void sysinstall::setup_ui() {
 	centerbox_nav.set_start_widget(button_previous);
 	centerbox_nav.set_end_widget(button_next);
 	centerbox_nav.set_margin(10);
-	button_previous.set_image_from_icon_name("arrow-left");
+	button_previous.set_image_from_icon_name("go-previous-symbolic");
 	button_previous.set_size_request(100, -1);
 	button_previous.set_sensitive(false);
-	button_next.set_image_from_icon_name("arrow-right");
+	button_next.get_style_context()->add_class("suggested-action");
+	button_next.set_image_from_icon_name("go-next-symbolic");
 	button_next.set_size_request(100, -1);
 
 	stack_main.set_transition_type(Gtk::StackTransitionType::SLIDE_LEFT_RIGHT);
