@@ -6,6 +6,7 @@
 #include "pages/setup.hpp"
 #include "pages/platform.hpp"
 #include "pages/files.hpp"
+#include "pages/device.hpp"
 
 sysinstall::sysinstall() : box_main(Gtk::Orientation::VERTICAL) {
 	set_title("Setup");
@@ -111,4 +112,7 @@ void sysinstall::load_install_pages() {
 
 	auto p_files = Gtk::make_managed<page_files>(this);
 	auto stack_files = stack_main.add(*p_files, "files");
+
+	auto p_device = Gtk::make_managed<page_device>(this);
+	auto stack_device = stack_main.add(*p_device, "device");
 }
