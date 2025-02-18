@@ -49,7 +49,7 @@ std::string get_rootfs_dev() {
 	return "";
 }
 
-void get_disks() {
+void page_device::get_disks() {
 	std::string rootDevice = get_rootfs_dev();
 	if (rootDevice.empty())
 		return;
@@ -86,7 +86,25 @@ void get_disks() {
 		uint64_t size_in_bytes = sector_count * 512;
 		std::string formatted_size = format_size(size_in_bytes);
 		std::printf("Disk: %s, Size: %s\n", device_name.c_str(), formatted_size.c_str());
+		auto dev = Gtk::make_managed<device>(device_name, formatted_size);
+		flowbox_devices.append(*dev);
 	}
+}
+
+device::device(const std::string& name, const std::string& size) : Gtk::Box(Gtk::Orientation::VERTICAL) {
+	set_size_request(128, 128);
+	append(image_device);
+	append(label_device);
+	append(label_size);
+
+	image_device.set_from_icon_name("drive-harddisk");
+	image_device.set_valign(Gtk::Align::CENTER);
+	image_device.set_pixel_size(64);
+	image_device.set_vexpand(true);
+
+	label_device.set_text(name);
+	label_size.set_text(size);
+	label_size.set_vexpand(true);
 }
 
 
@@ -108,4 +126,11 @@ void page_device::setup_ui() {
 	scrolledwindow_devices.set_margin_top(0);
 	scrolledwindow_devices.set_vexpand();
 	scrolledwindow_devices.set_child(flowbox_devices);
+
+	flowbox_devices.set_orientation(Gtk::Orientation::VERTICAL);
+	flowbox_devices.set_halign(Gtk::Align::CENTER);
+	flowbox_devices.set_valign(Gtk::Align::CENTER);
+	flowbox_devices.set_max_children_per_line(5);
+	flowbox_devices.set_row_spacing(10);
+	flowbox_devices.set_column_spacing(10);
 }

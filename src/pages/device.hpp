@@ -1,10 +1,23 @@
 #include <gtkmm/box.h>
 #include <gtkmm/entry.h>
 #include <gtkmm/label.h>
+#include <gtkmm/image.h>
 #include <gtkmm/flowbox.h>
 #include <gtkmm/scrolledwindow.h>
 
 class sysinstall;
+
+class device : public Gtk::Box {
+	public:
+		device(const std::string&, const std::string&);
+
+		Gtk::Image image_device;
+		Gtk::Label label_device;
+		Gtk::Label label_size;
+
+		std::string path;
+		std::string size;
+};
 
 class page_device : public Gtk::Box {
 	public:
@@ -19,4 +32,5 @@ class page_device : public Gtk::Box {
 		Gtk::ScrolledWindow scrolledwindow_devices;
 
 		void setup_ui();
+		void get_disks();
 };
