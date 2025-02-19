@@ -85,9 +85,10 @@ void page_device::get_disks() {
 
 		uint64_t size_in_bytes = sector_count * 512;
 		std::string formatted_size = format_size(size_in_bytes);
-		std::printf("Disk: %s, Size: %s\n", device_name.c_str(), formatted_size.c_str());
 		auto dev = Gtk::make_managed<device>(device_name, formatted_size);
 		flowbox_devices.append(*dev);
+		dev->size = size_in_bytes;
+		dev->path = "/dev/" + device_name;
 	}
 }
 

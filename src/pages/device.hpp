@@ -16,7 +16,7 @@ class device : public Gtk::Box {
 		Gtk::Label label_size;
 
 		std::string path;
-		std::string size;
+		uint64_t size;
 };
 
 class page_device : public Gtk::Box {

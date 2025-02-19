@@ -42,27 +42,16 @@ void page_files::setup_ui() {
 	// TODO: Add GUI file picker next to the entries
 	// TODO: Add rootfs downloader? (That may be difficult to do)
 
-	listbox_files.append(box_kernel);
-	box_kernel.get_style_context()->add_class("header");
-	box_kernel.append(label_kernel);
-	label_kernel.set_text("Kernel");
-	label_kernel.set_hexpand();
-	label_kernel.set_xalign(0);
-	box_kernel.append(entry_kernel);
-	entry_kernel.set_size_request(300, -1);
-	entry_kernel.set_valign(Gtk::Align::CENTER);
-	entry_kernel.set_placeholder_text("/path/to/Image");
-
-	listbox_files.append(box_dtb);
-	box_dtb.get_style_context()->add_class("header");
-	box_dtb.append(label_dtb);
-	label_dtb.set_text("Device tree");
-	label_dtb.set_hexpand();
-	label_dtb.set_xalign(0);
-	box_dtb.append(entry_dtb);
-	entry_dtb.set_size_request(300, -1);
-	entry_dtb.set_valign(Gtk::Align::CENTER);
-	entry_dtb.set_placeholder_text("/path/to/device_tree.dtb");
+	listbox_files.append(box_package);
+	box_package.get_style_context()->add_class("header");
+	box_package.append(label_package);
+	label_package.set_text("Device Package");
+	label_package.set_hexpand();
+	label_package.set_xalign(0);
+	box_package.append(entry_package);
+	entry_package.set_size_request(300, -1);
+	entry_package.set_valign(Gtk::Align::CENTER);
+	entry_package.set_placeholder_text("/path/to/device_package.tar");
 
 	listbox_files.append(box_rootfs);
 	box_rootfs.get_style_context()->add_class("header");
@@ -74,17 +63,6 @@ void page_files::setup_ui() {
 	entry_rootfs.set_size_request(300, -1);
 	entry_rootfs.set_valign(Gtk::Align::CENTER);
 	entry_rootfs.set_placeholder_text("/path/to/rootfs.img");
-
-	listbox_extras.append(box_modules);
-	box_modules.get_style_context()->add_class("header");
-	box_modules.append(label_modules);
-	label_modules.set_text("Modules");
-	label_modules.set_hexpand();
-	label_modules.set_xalign(0);
-	box_modules.append(entry_modules);
-	entry_modules.set_size_request(300, -1);
-	entry_modules.set_valign(Gtk::Align::CENTER);
-	entry_modules.set_placeholder_text("/path/to/usr/lib/modules");
 
 	listbox_extras.append(box_firmware);
 	box_firmware.get_style_context()->add_class("header");
